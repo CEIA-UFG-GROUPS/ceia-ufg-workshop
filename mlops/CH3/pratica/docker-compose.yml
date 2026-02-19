@@ -1,0 +1,72 @@
+services:
+
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    ports:
+      - "6006:6006"   # UI + OTLP/HTTP receiver (/v1/traces)
+      - "4317:4317"   # OTLP/gRPC receiver (future use)
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+    volumes:
+      - phoenix_data:/mnt/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:6006/healthz')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: "replace-with-a-strong-random-value-in-production"
+      APP_USER: "admin:changeme"
+      ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+      PHOENIX_COLLECTOR_ENDPOINT: "http://phoenix:6006/v1/traces"
+      UPLOAD_DIR: "/app/uploads"
+      VECTORSTORE_DIR: "/app/vectorstore"
+      OPENAI_MODEL: "gpt-4o-mini"
+    env_file: [.env]          # provides OPENAI_API_KEY
+    volumes:
+      - .:/app          # bind-mount source for hot reload
+      - rag_data:/app/uploads
+      - rag_data:/app/vectorstore
+    depends_on:
+      phoenix:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  streamlit:
+    build: ./streamlit_app
+    ports:
+      - "8501:8501"
+    environment:
+      API_BASE_URL: "http://api:8000"
+      API_USERNAME: "admin"
+      API_PASSWORD: "changeme"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mkdocs:
+    build:
+      context: .
+      dockerfile: docs/Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  phoenix_data:
+    driver: local
+  rag_data:
+    driver: local

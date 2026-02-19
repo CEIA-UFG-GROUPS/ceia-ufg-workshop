@@ -1,0 +1,27 @@
+[project]
+name = "api-autoreg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "arize-phoenix-otel>=0.14.0",
+    "faiss-cpu>=1.9.0",
+    "fastapi>=0.129.0",
+    "langchain>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-openai>=0.3.0",
+    "opentelemetry-instrumentation-fastapi>=0.60b0",
+    "passlib[bcrypt]>=1.7.4",
+    "pypdf>=5.0.0",
+    "python-dotenv>=1.1.0",
+    "python-jose[cryptography]>=3.3.0",
+    "python-multipart>=0.0.22",
+    "uvicorn>=0.41.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+]

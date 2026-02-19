@@ -1,0 +1,26 @@
+site_name: API AutoReg
+site_description: Document Q&A API — SEFAZ
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-7
+        name: Light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        name: Dark mode
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Architecture: architecture.md
+  - API Reference: api-reference.md
+  - RAG Pipeline: rag-pipeline.md
+  - Configuration: configuration.md
+  - Development: development.md
