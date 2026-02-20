@@ -12,7 +12,6 @@ Para mitigar esses problemas, a virtualização ganhou força. Máquinas virtuai
 
 <img width="1046" height="591" alt="image" src="https://github.com/user-attachments/assets/15c2715c-0412-4431-bced-b586ddecaace" />
 
-
 Com a evolução das tecnologias de kernel e isolamento de processos, surgiu o conceito moderno de containers. Diferente das máquinas virtuais, containers compartilham o kernel do sistema operacional hospedeiro, isolando apenas os processos, dependências e o sistema de arquivos necessários para a aplicação. Isso reduziu drasticamente o consumo de recursos e aumentou a eficiência na execução de workloads.
 
 <img width="1044" height="587" alt="image" src="https://github.com/user-attachments/assets/45d48663-689d-49eb-8885-d1537229a9c4" />
@@ -27,7 +26,7 @@ O Docker atua como uma plataforma para criar, distribuir e executar containers. 
 
 ## Imagens Docker e containers
 
-Um container Docker sempre é criado a partir de uma **imagem**. A imagem funciona como um modelo imutável que descreve tudo o que é necessário para executar uma aplicação, incluindo sistema de arquivos, dependências, variáveis de ambiente e comandos de inicialização. É importante compreender que uma imagem não é um container em execução; ela representa apenas a definição estática do ambiente. Podemos pensar nela como um instalador do ambiente no qual é possível rodar a aplicação que ela propõe. 
+Um container Docker sempre é criado a partir de uma **imagem**. A imagem funciona como um modelo imutável que descreve tudo o que é necessário para executar uma aplicação, incluindo sistema de arquivos, dependências, variáveis de ambiente e comandos de inicialização. É importante compreender que uma imagem não é um container em execução; ela representa apenas a definição estática do ambiente. Podemos pensar nela como um instalador do ambiente no qual é possível rodar a aplicação que ela propõe.
 
 As imagens podem ser listadas localmente utilizando o comando:
 
@@ -42,6 +41,7 @@ Elas podem ser obtidas a partir de repositórios públicos ou privados, como o [
 O Dockerfile é um arquivo declarativo que descreve passo a passo como uma imagem deve ser construída. Podemos pensar nele como uma "receita" que diz como a imagem deve ser constrída. Ele define a imagem base, copia arquivos da aplicação, instala dependências, configura variáveis de ambiente e especifica o comando que será executado quando o container for iniciado .
 
 Exemplo de Dockerfile:
+
 ```dockerfile
 # Define uma imagem base para iniciar o build
 FROM python:3.12.4 
@@ -119,7 +119,7 @@ cd workshop-nlp-mlops/mlops/CH1/practice
 Em seguida, recomenda-se criar um ambiente virtual Python para isolar dependências e instalar os pacotes necessários.
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate  # Linux/Mac
 .venv\Scripts\activate     # Windows
 
@@ -129,7 +129,7 @@ pip install -r requirements.txt
 Após a instalação das dependências, é possível executar localmente o exemplo base de aplicação de Machine Learning incluído neste capítulo.
 
 ```bash
-python app/main.py
+python3 app/main.py
 ```
 
 ---
@@ -145,7 +145,7 @@ docker build -t ch1-mlops-intro .
 Após a construção, a imagem pode ser executada como um container local.
 
 ```bash
-docker run -v logs:/app/logs -p 8000:8000 ch1-mlops-intro # Linux
+docker run -v ./logs/:/app/logs -p 8000:8000 ch1-mlops-intro # Linux
 docker run -v "%cd%/logs:/app/logs" -p 8000:8000 ch1-mlops-intro # Windows CMD
 ```
 
@@ -157,7 +157,7 @@ curl http://localhost:8000/
 
 ---
 
-## Materiais 
+## Materiais
 
 - [Slides](https://www.canva.com/design/DAHBZfHnu28/bXEE2GKGCRRtrJAmzLoLkA/edit?utm_content=DAHBZfHnu28&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [Documentação do Docker](https://docs.docker.com/guides/)
@@ -166,4 +166,3 @@ curl http://localhost:8000/
 - [História dos Containers](https://www.techtarget.com/searchitoperations/feature/Dive-into-the-decades-long-history-of-container-technology)
 - [Análise de Desempenho entre Máquinas Virtuais e Containers](https://www.grupounibra.com/repositorio/REDES/2022/analise-de-desempenho-entre-maquinas-virtuais-e-containers-utilizando-o-docker3.pdf)
 - [Containers e Virtualização](https://www.targetso.com/artigos/containers-e-virtualizacao/)
-
