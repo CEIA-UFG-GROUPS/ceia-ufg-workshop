@@ -1,9 +1,17 @@
-qdrant-client==1.7.3
-sentence-transformers==2.5.1
-fastapi==0.109.2
-uvicorn==0.27.1
-datasets==2.17.0
-openai==1.12.0
-python-dotenv==1.0.1
-scikit-learn==1.4.0
-numpy==1.26.4
+# Banco Vetorial e Embeddings
+qdrant-client>=1.7.3
+sentence-transformers>=2.7.0
+transformers>=4.40.0
+
+# API e Servidor
+fastapi>=0.109.2
+uvicorn>=0.27.1
+
+# Manipulação de Dados e Datasets
+datasets>=2.20.0
+numpy>=1.26.4
+scikit-learn>=1.4.0
+
+# LLM e Ambiente
+openai>=1.12.0
+python-dotenv>=1.0.1

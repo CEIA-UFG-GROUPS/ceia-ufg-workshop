@@ -50,13 +50,15 @@ def main():
 
         # 1. Gerar embedding da pergunta e buscar
         vetor_pergunta = model.encode(pergunta).tolist()
-        resultados = client.search(
-            collection_name="squad_docs", query_vector=vetor_pergunta, limit=k
+        resposta_qdrant = client.query_points(
+            collection_name="squad_docs",
+            query=vetor_pergunta, # O parâmetro mudou de query_vector para query
+            limit=k
         )
-
+        
         # 2. Verificar se o contexto retornado bate com o verdadeiro
-        # Cria uma lista [True, False, False...] baseada nos retornos
-        rankings = [res.payload["texto"] == contexto_verdadeiro for res in resultados]
+        # O resultado agora fica dentro do atributo .points
+        rankings = [res.payload["texto"] == contexto_verdadeiro for res in resposta_qdrant.points]
 
         # 3. get
         r, p, m, n = get_metrics(rankings, k)

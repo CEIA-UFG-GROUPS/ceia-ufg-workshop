@@ -15,7 +15,7 @@ cd nlp/CH4
 ## 3) Criar e ativar ambiente virtual
 
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 
 Ativar no Linux/macOS:
@@ -57,25 +57,25 @@ OPENAI_API_KEY=sk-sua-chave-aqui
 ### Ingestão no Qdrant
 
 ```bash
-python src/ingestao.py
+python3 src/ingestion.py
 ```
 
 ### Avaliação de métricas (100 primeiros IDs)
 
 ```bash
-python src/metricas.py
+python3 src/metrics.py
 ```
 
 ### Teste de RAG via terminal
 
 ```bash
-python src/rag.py
+python3 src/rag.py
 ```
 
 ### Subir API
 
 ```bash
-python src/api.py
+python3 src/api.py
 ```
 
 ## 8) Testar endpoint da API

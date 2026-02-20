@@ -15,11 +15,13 @@ qdrant_client = QdrantClient(host="localhost", port=6333)
 
 def buscar_contexto(pergunta: str, limite: int = 3) -> str:
     vetor = model.encode(pergunta).tolist()
-    resultados = qdrant_client.search(
-        collection_name="squad_docs", query_vector=vetor, limit=limite
+    resposta_qdrant = qdrant_client.query_points(
+        collection_name="squad_docs",
+        query=vetor,
+        limit=limite
     )
-    # Junta os textos recuperados em uma única string
-    contexto = "\n\n".join([res.payload["texto"] for res in resultados])
+    # Junta os textos recuperados em uma única string (acessando .points)
+    contexto = "\n\n".join([res.payload["texto"] for res in resposta_qdrant.points])
     return contexto
 
 

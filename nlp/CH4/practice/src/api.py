@@ -24,4 +24,4 @@ def endpoint_rag(req: PerguntaRequest):
 
 if __name__ == "__main__":
     # Roda o servidor na porta 8000
-    uvicorn.run("src.04_api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("src.api:app", host="0.0.0.0", port=8000, reload=True)
