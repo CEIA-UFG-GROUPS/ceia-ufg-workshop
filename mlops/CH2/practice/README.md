@@ -39,14 +39,14 @@ Pré-requisito: **Docker Desktop** instalado.
     docker compose up --build
     ```
 
-    > ☕ **Aguarde**: O sistema baixará o modelo de IA (~1.5GB).
+    > **Aguarde**: O sistema baixará o modelo de IA (~1.5GB).
 
 3. **Acessar**:
-    👉 **[http://localhost](http://localhost)**
+    👉 **[http://localhost:8080](http://localhost:8080)**
 
 ---
 
-## � Explorando as Tecnologias
+## Explorando as Tecnologias
 
 Use a aplicação para "ver" o Qdrant e o LLM trabalhando:
 

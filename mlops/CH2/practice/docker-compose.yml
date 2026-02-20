@@ -4,7 +4,7 @@ services:
     image: nginx:alpine
     container_name: ch2-frontend
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./frontend:/usr/share/nginx/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
