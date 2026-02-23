@@ -1,3 +1,9 @@
+# Apresentação 
+
+- Link: https://www.canva.com/design/DAHBgqtO4iI/p9f6eOWwxYfvOz1i0qNpHw/edit?utm_content=DAHBgqtO4iI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+
+
 # Como acessar o notebook
 
 - Clique no link do Colab: https://colab.research.google.com/drive/18OfWZ1esBUWURgjKBWJ7vNQy-Zh1EhSy?usp=sharing
