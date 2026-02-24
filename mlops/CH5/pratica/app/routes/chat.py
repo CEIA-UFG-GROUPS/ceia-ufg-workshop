@@ -2,7 +2,7 @@
 Rota de chat — endpoint principal do serviço.
 """
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Body, HTTPException, status
 
 from client import get_client
 from models import ChatMessage, ChatRequest, ChatResponse
@@ -12,9 +12,17 @@ router = APIRouter()
 
 
 @router.post("/chat", response_model=ChatResponse)
-async def chat_completion(request: ChatRequest):
+async def chat_completion(
+    request: ChatRequest = Body(
+        ...,
+        example={
+            "messages": [{"role": "user", "content": "Olá! Quem é você?"}],
+            "model": "gemini-2.5-flash",
+        },
+    ),
+):
     """
-    Envia mensagens para um LLM via OpenRouter e retorna a resposta.
+    Envia mensagens para um LLM (Gemini) e retorna a resposta.
 
     O sistema injeta automaticamente o SYSTEM_PROMPT antes das mensagens
     do usuário para definir o comportamento do assistente.
@@ -22,8 +30,8 @@ async def chat_completion(request: ChatRequest):
     Exemplo de request:
         POST /chat
         {
-            "messages": [{"role": "user", "content": "Olá!"}],
-            "model": "openai/gpt-4o-mini"
+          "messages": [{"role": "user", "content": "Olá! Quem é você?"}],
+          "model": "gemini-2.0-flash"
         }
     """
     client = get_client()
