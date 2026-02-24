@@ -17,7 +17,7 @@ substitutions:
   _IMAGE_NAME: api-blackbox
   _REGION: us-central1
   _REPOSITORY: docker-images
-  _SERVICE_ACCOUNT: learning-llmops@${PROJECT_ID}.iam.gserviceaccount.com
+  _SERVICE_ACCOUNT: github-deployer@${PROJECT_ID}.iam.gserviceaccount.com
 
 steps:
   # ========== STEP 1: BUILD ==========
