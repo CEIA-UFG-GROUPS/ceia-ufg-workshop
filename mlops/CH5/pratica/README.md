@@ -1,6 +1,6 @@
 # CH5 — Deploy de um Serviço LLM com Pipeline Completo
 
-Este documento guia você pelo processo completo: do código rodando localmente até o deploy automático na nuvem via pipeline de CI/CD.
+Este documento guia você pelo processo completo: do código rodando localmente até o deploy automático na nuvem via pipeline de CI/CD. VAI SER LEGAL!
 
 ---
 

@@ -49,54 +49,6 @@ steps:
 
     waitFor: ['build-image']  # Espera build terminar
 
-  # ========== STEP 3: DEPLOY ==========
-  # Faz deploy no Cloud Run
-
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    id: 'deploy-cloud-run'
-    entrypoint: gcloud
-    args:
-      # Comando base
-      - 'run'
-      - 'deploy'
-      - '${_IMAGE_NAME}'
-
-      # Imagem
-      - '--image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}'
-
-      # Localização
-      - '--region=${_REGION}'
-      - '--platform=managed'
-
-      # Recursos
-      - '--memory=1Gi'          # 1GB RAM
-      - '--cpu=1'               # 1 vCPU
-      - '--timeout=60s'         # Timeout de 60s (LLMs podem demorar)
-      - '--concurrency=80'      # Máximo de requests simultâneos por instância
-
-      # Autoscaling
-      - '--min-instances=0'     # Escala para zero quando sem uso (economia)
-      - '--max-instances=1'    # Máximo 1 instâncias (controle de custo)
-
-      # Segurança
-      - '--allow-unauthenticated'  # API pública (autenticação via API key)
-      - '--service-account=${_SERVICE_ACCOUNT}'
-
-      # Variáveis de ambiente
-      - '--set-env-vars=APP_ENV=production,PORT=8080'
-
-      # Secrets (configurados no Secret Manager)
-      # Formato: SECRET_NAME=SECRET_ID:VERSION
-      # Exemplo: OPENROUTER_API_KEY=OPENROUTER_API_KEY:latest
-      #
-      # Descomente e configure após criar secrets:
-      # - '--set-secrets=OPENROUTER_API_KEY=OPENROUTER_API_KEY:latest'
-      # - '--set-secrets=DATABASE_URL=DATABASE_URL:latest'
-
-      # Labels (para organização e billing)
-      - '--labels=app=api-blackbox,env=production,team=llmops'
-
-    waitFor: ['push-image']
 
 # ========== IMAGES ==========
 # Lista de imagens que serão armazenadas no Artifact Registry
@@ -105,15 +57,6 @@ images:
   - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}'
   - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}:latest'
 
-# ========== OPTIONS ==========
-# Configurações do build
-
-options:
-  # Máquina poderosa para build rápido
-  machineType: 'N1_HIGHCPU_8'
-
-  # Logging apenas no Cloud Logging (mais limpo)
-  logging: CLOUD_LOGGING_ONLY
 
 # ========== TIMEOUT ==========
 # Timeout global do build
